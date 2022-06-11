@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_tutorial_hooks_record_timer/custom_hooks.dart';
 
 class RecordingPage extends HookWidget {
   const RecordingPage({Key? key}) : super(key: key);
@@ -36,18 +37,7 @@ class _ElapsedTimeLabel extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tickerProvider = useSingleTickerProvider();
-    final duration = useState(Duration.zero);
-    final ticker = useMemoized(() {
-      return tickerProvider.createTicker((elapsed) => duration.value = elapsed);
-    });
-
-    useEffect(() {
-      recording.value ? ticker.start() : ticker.stop();
-      return null;
-    }, [recording.value]);
-
-    useEffect(() => () => ticker.dispose(), []);
+    final duration = useStopWatch(recording);
 
     return Visibility(
       maintainSize: true,
