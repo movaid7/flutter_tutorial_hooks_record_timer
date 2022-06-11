@@ -94,6 +94,7 @@ class _CircleButton extends HookWidget {
             color: Colors.red.shade900,
             shape: const CircleBorder(),
             child: AnimatedSwitcher(
+              // https://stackoverflow.com/a/70396971/6122673
               duration: const Duration(milliseconds: 500),
               transitionBuilder: (child, animation) =>
                   ScaleTransition(scale: animation, child: child),
